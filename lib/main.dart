@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MoviesApp',
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: HomeLayout.routeName,
       routes: {
-        HomeScreen.routeName: (context) => HomeScreen(),
+        HomeLayout.routeName: (context) => HomeLayout(),
       },
       theme: MyThemeData.lightTheme,
     );

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class MyThemeData {
   static ThemeData lightTheme = ThemeData(
-    tabBarTheme: TabBarTheme(
-        //here
-        ),
+    scaffoldBackgroundColor: Colors.black,
+
     // textTheme: TextTheme(
     //     bodyLarge: GoogleFonts.poppins(
     //         fontSize: 22,
