@@ -1,11 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:moviesapp/shared/network/remote/api_manager.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
   @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Text("Home Tab", style: TextStyle(color: Colors.white)));
+    return Column(
+      children: [
+        FutureBuilder(
+            future: ApiManager.getPopular(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasError) {
+                return Text("An Error has occured",
+                    style: TextStyle(color: Colors.white));
+              }
+              if (snapshot.data?.success == false) {
+                return Text("Failed request check sent parameters",
+                    style: TextStyle(color: Colors.white));
+              }
+              var popularMovies = snapshot.data?.results ?? [];
+              return Expanded(
+                  child: ListView.builder(
+                itemCount: popularMovies.length,
+                itemBuilder: (context, index) {
+                  return Text(
+                    popularMovies[index].title ?? "",
+                    style: TextStyle(color: Colors.white),
+                  );
+                },
+              ));
+            }),
+      ],
+    );
   }
 }
