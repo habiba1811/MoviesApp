@@ -31,8 +31,6 @@ class _HomeTabState extends State<HomeTab> {
               }
 
               var UpcomingMovies = snapshot.data?.results ?? [];
-              print(
-                  "success issssssssssssssssssss ${snapshot.data?.totalResults ?? []}");
               return Expanded(
                   child: ListView.builder(
                 itemCount: UpcomingMovies.length,

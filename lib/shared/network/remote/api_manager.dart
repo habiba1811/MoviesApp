@@ -31,20 +31,16 @@ class ApiManager {
     try {
       Uri url = Uri.https(
           "api.themoviedb.org", "/3/movie/upcoming", {"language": "en-US"});
-      //print("Hellllllllooooooooooooo");
       http.Response response = await http.get(url, headers: {
         "Authorization":
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZWZjYjMxYWQ3ZGFlNGIyMDJmZmQyNTU2YWFmYTIyNyIsInN1YiI6IjY1M2E2MTJlMDkxZTYyMDBhY2JkNWU0YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ugMLj-4o4TAcgVy-M-rhWcQcWPosyuSNQVIY10ADlVY"
       });
-      //print("It'sssssss meeeeeeeeeeeeeeeeeeeeeeeeeeee");
       var jsonData = jsonDecode(response.body);
       //print("I waaaaas wonderrrrrrring");
       NewReleasesResponse newReleasesResponse =
           NewReleasesResponse.fromJson(jsonData);
-      //print("Ifffff afterrrrr allllllll theeeseeeeee");
       return newReleasesResponse;
     } catch (e) {
-      //print("yearsssssss you'd like tooooooo meeeeeeeeet");
       print(e.toString());
       throw Exception();
     }
