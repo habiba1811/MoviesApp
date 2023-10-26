@@ -1,5 +1,5 @@
-class PopularResponse {
-  PopularResponse(
+class MoviesResponse {
+  MoviesResponse(
       {this.page,
       this.results,
       this.totalPages,
@@ -8,7 +8,7 @@ class PopularResponse {
       this.statusMessage,
       this.success});
 
-  PopularResponse.fromJson(dynamic json) {
+  MoviesResponse.fromJson(dynamic json) {
     page = json['page'];
     if (json['results'] != null) {
       results = [];

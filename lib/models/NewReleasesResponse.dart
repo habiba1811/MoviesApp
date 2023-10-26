@@ -1,4 +1,4 @@
-import 'package:moviesapp/models/popularResponse.dart';
+import 'package:moviesapp/models/MoviesResponse.dart';
 
 /// dates : {"maximum":"2023-11-22","minimum":"2023-11-01"}
 /// page : 1
