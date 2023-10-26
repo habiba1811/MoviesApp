@@ -14,7 +14,7 @@ class _HomeTabState extends State<HomeTab> {
     return Column(
       children: [
         FutureBuilder(
-            future: ApiManager.getPopular(),
+            future: ApiManager.getUpcoming(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -29,13 +29,16 @@ class _HomeTabState extends State<HomeTab> {
                 return Text("Failed request check sent parameters",
                     style: TextStyle(color: Colors.white));
               }
-              var popularMovies = snapshot.data?.results ?? [];
+
+              var UpcomingMovies = snapshot.data?.results ?? [];
+              print(
+                  "success issssssssssssssssssss ${snapshot.data?.totalResults ?? []}");
               return Expanded(
                   child: ListView.builder(
-                itemCount: popularMovies.length,
+                itemCount: UpcomingMovies.length,
                 itemBuilder: (context, index) {
                   return Text(
-                    popularMovies[index].title ?? "",
+                    UpcomingMovies[index].title ?? "",
                     style: TextStyle(color: Colors.white),
                   );
                 },
