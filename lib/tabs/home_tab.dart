@@ -14,7 +14,7 @@ class _HomeTabState extends State<HomeTab> {
     return Column(
       children: [
         FutureBuilder(
-            future: ApiManager.getRecommended(),
+            future: ApiManager.getUpcoming(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(

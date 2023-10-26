@@ -6,59 +6,33 @@ import 'package:moviesapp/models/MoviesResponse.dart';
 /// total_pages : 28
 /// total_results : 551
 
-class NewReleasesResponse {
+class NewReleasesResponse extends MoviesResponse {
   NewReleasesResponse(
       {this.dates,
-      this.page,
-      this.results,
-      this.totalPages,
-      this.totalResults,
-      this.statusCode,
-      this.statusMessage,
-      this.success});
+      num? page,
+      List<Results>? results,
+      num? totalPages,
+      num? totalResults,
+      num? statusCode,
+      String? statusMessage,
+      bool? success})
+      : super(
+            page: page,
+            results: results,
+            totalPages: totalPages,
+            totalResults: totalResults,
+            statusCode: statusCode,
+            statusMessage: statusMessage,
+            success: success) {
+    // print("inside child construtcoooooooooooooooooooor");
+  }
 
-  NewReleasesResponse.fromJson(dynamic json) {
+  NewReleasesResponse.fromJson(dynamic json) : super.fromJson(json) {
     dates = json['dates'] != null ? Dates.fromJson(json['dates']) : null;
-    page = json['page'];
-    if (json['results'] != null) {
-      results = [];
-      json['results'].forEach((v) {
-        results?.add(Results.fromJson(v));
-      });
-    }
-    totalPages = json['total_pages'];
-    totalResults = json['total_results'];
-    statusCode = json['status_code'];
-    statusMessage = json['status_message'];
-    success = json['success'];
   }
 
   Dates? dates;
-  int? page;
-  List<Results>? results;
-  int? totalPages;
-  int? totalResults;
-  num? statusCode;
-  String? statusMessage;
-  bool? success;
 }
-
-/// adult : false
-/// backdrop_path : "/whB2PJfxrDWwwksprliJTjYbcZJ.jpg"
-/// genre_ids : [27,53]
-/// id : 507089
-/// original_language : "en"
-/// original_title : "Five Nights at Freddy's"
-/// overview : "Recently fired and desperate for work, a troubled young man named Mike agrees to take a position as a night security guard at an abandoned theme restaurant: Freddy Fazbear's Pizzeria. But he soon discovers that nothing at Freddy's is what it seems."
-/// popularity : 1324.748
-/// poster_path : "/A4j8S6moJS2zNtRR8oWF08gRnL5.jpg"
-/// release_date : "2023-10-25"
-/// title : "Five Nights at Freddy's"
-/// video : false
-/// vote_average : 8.6
-/// vote_count : 21
-/// maximum : "2023-11-22"
-/// minimum : "2023-11-01"
 
 class Dates {
   Dates({
@@ -73,11 +47,4 @@ class Dates {
 
   String? maximum;
   String? minimum;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['maximum'] = maximum;
-    map['minimum'] = minimum;
-    return map;
-  }
 }
