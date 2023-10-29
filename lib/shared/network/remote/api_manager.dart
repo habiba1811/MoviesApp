@@ -37,7 +37,6 @@ class ApiManager {
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZWZjYjMxYWQ3ZGFlNGIyMDJmZmQyNTU2YWFmYTIyNyIsInN1YiI6IjY1M2E2MTJlMDkxZTYyMDBhY2JkNWU0YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ugMLj-4o4TAcgVy-M-rhWcQcWPosyuSNQVIY10ADlVY"
       });
       var jsonData = jsonDecode(response.body);
-      //print("I waaaaas wonderrrrrrring");
       NewReleasesResponse newReleasesResponse =
           NewReleasesResponse.fromJson(jsonData);
       return newReleasesResponse;
