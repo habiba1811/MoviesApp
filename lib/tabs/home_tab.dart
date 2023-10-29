@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moviesapp/shared/network/remote/api_manager.dart';
+import 'package:moviesapp/shared/components/Widgets/movies_row.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -12,36 +12,19 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FutureBuilder(
-            future: ApiManager.getUpcoming(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return Text("An Error has occured",
-                    style: TextStyle(color: Colors.white));
-              }
-              if (snapshot.data?.success == false) {
-                return Text("Failed request check sent parameters",
-                    style: TextStyle(color: Colors.white));
-              }
-
-              var UpcomingMovies = snapshot.data?.results ?? [];
-              return Expanded(
-                  child: ListView.builder(
-                itemCount: UpcomingMovies.length,
-                itemBuilder: (context, index) {
-                  return Text(
-                    UpcomingMovies[index].title ?? "",
-                    style: TextStyle(color: Colors.white),
-                  );
-                },
-              ));
-            }),
+        Expanded(
+            child: Column(
+          children: [
+            Text(
+              "Popular",
+              style: TextStyle(color: Colors.white),
+            )
+          ],
+        )),
+        Expanded(child: MoviesRow("New Releases")),
+        Expanded(child: MoviesRow("Recommended")),
       ],
     );
   }
