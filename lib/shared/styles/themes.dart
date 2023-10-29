@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:moviesapp/shared/styles/colors.dart';
 
 class MyThemeData {
   static ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.black,
-
-    // textTheme: TextTheme(
-    //     bodyLarge: GoogleFonts.poppins(
-    //         fontSize: 22,
-    //         fontWeight: FontWeight.w700,
-    //         color: MyColors.whiteColor),
-    //     bodySmall: GoogleFonts.poppins(
-    //         fontSize: 12,
-    //         color: MyColors.blackColor,
-    //         fontWeight: FontWeight.w400))
-  );
+      scaffoldBackgroundColor: Colors.black,
+      textTheme: TextTheme(
+          headlineLarge: GoogleFonts.poppins(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: MyColors.whiteColor),
+          bodyLarge: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: MyColors.whiteColor),
+          bodyMedium: GoogleFonts.poppins(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: MyColors.whiteColor)));
 }
