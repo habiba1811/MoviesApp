@@ -1,11 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
 
-class MoviePoster extends StatelessWidget {
+class MoviePoster extends StatefulWidget {
   bool active;
+  String posterLink;
 
-  MoviePoster(this.active);
+  MoviePoster(this.active, this.posterLink);
 
+  @override
+  State<MoviePoster> createState() => _MoviePosterState();
+}
+
+class _MoviePosterState extends State<MoviePoster> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,10 +22,8 @@ class MoviePoster extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(7),
-            //decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            // width: 150,
-            child: Image.network(
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/RedCat_8727.jpg/1280px-RedCat_8727.jpg",
+            child: CachedNetworkImage(
+              imageUrl: "${widget.posterLink}",
               height: double.infinity,
               width: 150,
               fit: BoxFit.fill,
@@ -26,22 +31,28 @@ class MoviePoster extends StatelessWidget {
           ),
           Positioned(
             top: -8,
-            left: -12,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Icon(
-                  Icons.bookmark,
-                  color: active
-                      ? MyColors.tapBarIconColor
-                      : MyColors.BookmarkIconColor,
-                  size: 60,
-                ),
-                Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ],
+            left: -13,
+            child: InkWell(
+              onTap: () {
+                widget.active = !widget.active;
+                setState(() {});
+              },
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Icon(
+                    Icons.bookmark,
+                    color: widget.active
+                        ? MyColors.tapBarIconColor
+                        : MyColors.BookmarkIconColor,
+                    size: 60,
+                  ),
+                  Icon(
+                    widget.active ? Icons.check : Icons.add,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
             ),
           )
         ],
