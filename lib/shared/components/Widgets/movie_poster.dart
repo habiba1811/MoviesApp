@@ -16,7 +16,7 @@ class _MoviePosterState extends State<MoviePoster> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: Stack(
         alignment: Alignment.topLeft,
         children: [
@@ -25,7 +25,7 @@ class _MoviePosterState extends State<MoviePoster> {
             child: CachedNetworkImage(
               imageUrl: "${widget.posterLink}",
               height: double.infinity,
-              width: 150,
+              width: 130,
               fit: BoxFit.fill,
             ),
           ),

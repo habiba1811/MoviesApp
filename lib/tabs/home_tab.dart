@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapp/shared/components/Widgets/movies_row.dart';
 
+import '../shared/components/Widgets/carousel.dart';
+import '../shared/network/remote/api_manager.dart';
+
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
@@ -14,15 +17,26 @@ class _HomeTabState extends State<HomeTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-            child: Column(
-          children: [
-            Text(
-              "Popular",
-              style: TextStyle(color: Colors.white),
-            )
-          ],
-        )),
+        FutureBuilder(
+          future: ApiManager.getPopular(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return Text("An Error has occured",
+                  style: TextStyle(color: Colors.white));
+            }
+            if (snapshot.data?.success == false) {
+              return Text("Failed request check sent parameters",
+                  style: TextStyle(color: Colors.white));
+            }
+            var UpcomingMovies = snapshot.data?.results ?? [];
+            return MyCarousel(UpcomingMovies);
+          },
+        ),
         Expanded(child: MoviesRow("New Releases", 1)),
         Expanded(child: MoviesRow("Recommended", 2)),
       ],
