@@ -18,10 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 4), NavegateToTasksBage);
+    Timer(const Duration(seconds: 4), NavegateToHomeScreen);
   }
 
-  void NavegateToTasksBage() {
+  void NavegateToHomeScreen() {
     Navigator.pushNamedAndRemoveUntil(
         context, HomeLayout.routeName, (route) => false);
   }
