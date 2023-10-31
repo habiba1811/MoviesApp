@@ -54,11 +54,12 @@ class MoviesRow extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: UpcomingMovies.length,
                 itemBuilder: (context, index) {
-                  return MoviePoster(
-                      false,
-                      UpcomingMovies[index].posterPath == null
-                          ? def
-                          : "https://image.tmdb.org/t/p/w500${UpcomingMovies[index].posterPath}");
+                  UpcomingMovies[index].posterPath = UpcomingMovies[index]
+                              .posterPath ==
+                          null
+                      ? def
+                      : "https://image.tmdb.org/t/p/w500${UpcomingMovies[index].posterPath}";
+                  return MoviePoster(UpcomingMovies[index]);
                 },
               ));
             },
