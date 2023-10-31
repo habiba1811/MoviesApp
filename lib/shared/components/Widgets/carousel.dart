@@ -56,11 +56,10 @@ class _MyCarouselState extends State<MyCarousel> {
                   items: widget.results.map((movie) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return MoviePoster(
-                            false,
-                            movie.posterPath == null
-                                ? "https://thumbs.dreamstime.com/z/no-photo-blank-image-icon-loading-images-missing-image-mark-image-not-available-image-coming-soon-sign-no-photo-blank-215973362.jpg?w=2048"
-                                : "https://image.tmdb.org/t/p/w500${movie.posterPath}");
+                        movie.posterPath = movie.posterPath == null
+                            ? "https://thumbs.dreamstime.com/z/no-photo-blank-image-icon-loading-images-missing-image-mark-image-not-available-image-coming-soon-sign-no-photo-blank-215973362.jpg?w=2048"
+                            : "https://image.tmdb.org/t/p/w500${movie.posterPath}";
+                        return MoviePoster(movie);
                       },
                     );
                   }).toList(),
