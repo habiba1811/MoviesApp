@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: SplashScreen.routeName,
       routes: {
-        HomeLayout.routeName: (context) => const HomeLayout(),
-        CategoryMoviesScreen.routeName: (context) => const CategoryMoviesScreen(),
+        HomeLayout.routeName: (context) => HomeLayout(),
+        CategoryMoviesScreen.routeName: (context) => CategoryMoviesScreen(),
         SplashScreen.routeName: (context) => const SplashScreen(),
       },
       theme: MyThemeData.lightTheme,
