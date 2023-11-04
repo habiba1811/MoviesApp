@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:moviesapp/shared/components/Widgets/movies_row.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();

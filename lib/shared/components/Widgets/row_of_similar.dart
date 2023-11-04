@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:moviesapp/models/MoviesResponse.dart';
 import 'package:moviesapp/shared/network/remote/api_manager.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
 
 import 'movie_poster.dart';
 
-class MoviesRow extends StatelessWidget {
-  String title;
-  int type; //type 1 New Releases or upcoming        type 2 is recommended
-  MoviesRow(this.title, this.type);
+class RowOfSimilar extends StatelessWidget {
+  String
+      title; //type 1 New Releases or upcoming        type 2 is recommended  type 3 is Similar
+  Results movieModel;
+
+  RowOfSimilar(this.title, this.movieModel);
 
   String def =
       "https://thumbs.dreamstime.com/z/no-photo-blank-image-icon-loading-images-missing-image-mark-image-not-available-image-coming-soon-sign-no-photo-blank-215973362.jpg?w=2048";
@@ -31,9 +34,7 @@ class MoviesRow extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: type == 1
-                ? ApiManager.getUpcoming()
-                : ApiManager.getRecommended(),
+            future: ApiManager.getSimilar(movieModel.id ?? 0),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -48,18 +49,19 @@ class MoviesRow extends StatelessWidget {
                 return Text("Failed request check sent parameters",
                     style: TextStyle(color: Colors.white));
               }
-              var UpcomingMovies = snapshot.data?.results ?? [];
+              var SimilarMovies = snapshot.data?.results ?? [];
+
               return Expanded(
                   child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: UpcomingMovies.length,
+                itemCount: SimilarMovies.length,
                 itemBuilder: (context, index) {
                   return MoviePoster(
-                    false,
-                    UpcomingMovies[index].posterPath == null
-                        ? def
-                        : "https://image.tmdb.org/t/p/w500${UpcomingMovies[index].posterPath}",
-                  );
+                      false,
+                      SimilarMovies[index].posterPath == null
+                          ? def
+                          : "https://image.tmdb.org/t/p/w500${SimilarMovies[index].posterPath}",
+                      movieModel);
                 },
               ));
             },
@@ -69,3 +71,4 @@ class MoviesRow extends StatelessWidget {
     );
   }
 }
+//ApiManager.getRecommended()
