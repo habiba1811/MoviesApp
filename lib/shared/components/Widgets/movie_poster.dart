@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/models/details_model.dart';
-import 'package:moviesapp/models/movie_details_response.dart';
 import 'package:moviesapp/screens/movie_details.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
 
@@ -11,10 +10,9 @@ class MoviePoster extends StatefulWidget {
   // bool active;
   final String posterLink;
   final Results? singleMovieResult;
-  final MovieDetailsResponse? movieDetailsResponse;
+  // final MovieDetailsResponse? movieDetailsResponse;
 
-  const MoviePoster(this.posterLink,
-      {super.key, this.singleMovieResult, this.movieDetailsResponse});
+  const MoviePoster(this.posterLink, {super.key, this.singleMovieResult});
 
   @override
   State<MoviePoster> createState() => _MoviePosterState();
@@ -33,8 +31,6 @@ class _MoviePosterState extends State<MoviePoster> {
           movieId: widget.singleMovieResult!.id ?? -1,
           poster: widget.singleMovieResult!.posterPath ?? "",
           time: widget.singleMovieResult!.releaseDate ?? "",
-          overview: widget.movieDetailsResponse?.overview ?? "",
-          //runtime: widget.movieDetailsResponse!.runtime ?? 0,
         );
         print(mm.movieId);
         Navigator.pushNamed(
