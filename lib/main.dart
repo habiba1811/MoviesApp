@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moviesapp/firebase_options.dart';
 import 'package:moviesapp/layout/home_layout.dart';
 import 'package:moviesapp/screens/category_movies.dart';
+import 'package:moviesapp/screens/splash_screen.dart';
 import 'package:moviesapp/shared/styles/themes.dart';
 
 import 'screens/movie_details.dart';
@@ -24,11 +25,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MoviesApp',
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeLayout.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         HomeLayout.routeName: (context) => HomeLayout(),
         CategoryMoviesScreen.routeName: (context) => CategoryMoviesScreen(),
         MovieDetails.routeName: (context) => MovieDetails(),
+        SplashScreen.routeName: (context) => SplashScreen(),
       },
       theme: MyThemeData.lightTheme,
     );

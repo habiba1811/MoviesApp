@@ -66,10 +66,6 @@ class _MovieDetailsState extends State<MovieDetails> {
               child: RowOfSimilar(
                 "More Like This",
               )),
-          Expanded(
-              child: RowOfSimilar(
-                "More Like This",
-              )),
         ],
       ),
     );
