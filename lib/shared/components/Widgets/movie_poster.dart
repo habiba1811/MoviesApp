@@ -7,24 +7,37 @@ import 'package:moviesapp/shared/styles/colors.dart';
 import '../../../models/MoviesResponse.dart';
 
 class MoviePoster extends StatefulWidget {
-  bool active;
-  String posterLink;
+  // bool active;
+  final String posterLink;
+  final Results? singleMovieResult;
 
-  // Results movieModel;
-  MoviePoster(this.active, this.posterLink);
+  const MoviePoster(this.posterLink, {super.key, this.singleMovieResult});
 
   @override
   State<MoviePoster> createState() => _MoviePosterState();
 }
 
 class _MoviePosterState extends State<MoviePoster> {
+  bool active = false;
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(
-          context, MovieDetails.routeName,
-          // arguments: MovieDetailsModel(movieTitle:widget.movieModel.title??"" , movieId:widget.movieModel.id??1991 ),
+        if (widget.singleMovieResult == null) return;
+        MovieDetailsModel mm = MovieDetailsModel(
+          movieTitle: widget.singleMovieResult!.title ?? "",
+          movieId: widget.singleMovieResult!.id ?? -1,
         );
+        print(mm.movieId);
+        Navigator.pushNamed(
+          context,
+          MovieDetails.routeName,
+          arguments: mm,
+        );
+        // setState(() {
+        //
+        // });
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -34,7 +47,8 @@ class _MoviePosterState extends State<MoviePoster> {
             ClipRRect(
               borderRadius: BorderRadius.circular(7),
               child: CachedNetworkImage(
-                imageUrl: "${widget.posterLink}",
+                imageUrl:
+                    "https://image.tmdb.org/t/p/w500${widget.singleMovieResult != null ? widget.singleMovieResult!.posterPath : widget.posterLink}",
                 height: double.infinity,
                 width: 150,
                 fit: BoxFit.fill,
@@ -45,7 +59,7 @@ class _MoviePosterState extends State<MoviePoster> {
               left: -13,
               child: InkWell(
                 onTap: () {
-                  widget.active = !widget.active;
+                  active = !active;
                   setState(() {});
                 },
                 child: Stack(
@@ -53,13 +67,13 @@ class _MoviePosterState extends State<MoviePoster> {
                   children: [
                     Icon(
                       Icons.bookmark,
-                      color: widget.active
+                      color: active
                           ? MyColors.tapBarIconColor
                           : MyColors.BookmarkIconColor,
                       size: 60,
                     ),
                     Icon(
-                      widget.active ? Icons.check : Icons.add,
+                      active ? Icons.check : Icons.add,
                       color: Colors.white,
                     ),
                   ],

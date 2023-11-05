@@ -22,8 +22,8 @@ class _HomeTabState extends State<HomeTab> {
             )
           ],
         )),
-        Expanded(child: MoviesRow("New Releases", 1)),
-        Expanded(child: MoviesRow("Recommended", 2)),
+        Expanded(child: MoviesRow(title: "New Releases", type: 1)),
+        Expanded(child: MoviesRow(title: "Recommended", type: 2)),
       ],
     );
   }

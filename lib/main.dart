@@ -5,6 +5,8 @@ import 'package:moviesapp/layout/home_layout.dart';
 import 'package:moviesapp/screens/category_movies.dart';
 import 'package:moviesapp/shared/styles/themes.dart';
 
+import 'screens/movie_details.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeLayout.routeName: (context) => HomeLayout(),
         CategoryMoviesScreen.routeName: (context) => CategoryMoviesScreen(),
+        MovieDetails.routeName: (context) => MovieDetails(),
       },
       theme: MyThemeData.lightTheme,
     );

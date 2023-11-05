@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moviesapp/models/MoviesResponse.dart';
+import 'package:moviesapp/models/details_model.dart';
 import 'package:moviesapp/shared/network/remote/api_manager.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
 
 import 'movie_poster.dart';
 
 class RowOfSimilar extends StatelessWidget {
-  String
-      title; //type 1 New Releases or upcoming        type 2 is recommended  type 3 is Similar
-  Results movieModel;
+  String title;
 
-  RowOfSimilar(this.title, this.movieModel);
+  RowOfSimilar(this.title);
 
   String def =
       "https://thumbs.dreamstime.com/z/no-photo-blank-image-icon-loading-images-missing-image-mark-image-not-available-image-coming-soon-sign-no-photo-blank-215973362.jpg?w=2048";
 
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)?.settings.arguments as MovieDetailsModel;
     return Container(
       decoration: BoxDecoration(color: MyColors.moviesRowBackColor),
       child: Column(
@@ -34,34 +33,34 @@ class RowOfSimilar extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: ApiManager.getSimilar(movieModel.id ?? 0),
+            future: ApiManager.getSimilar(args.movieId),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
               if (snapshot.hasError) {
-                return Text("An Error has occured",
+                return const Text("An Error has occured",
                     style: TextStyle(color: Colors.white));
               }
               if (snapshot.data?.success == false) {
-                return Text("Failed request check sent parameters",
+                return const Text("Failed request check sent parameters",
                     style: TextStyle(color: Colors.white));
               }
-              var SimilarMovies = snapshot.data?.results ?? [];
+              var similarMovies = snapshot.data?.results ?? [];
 
               return Expanded(
                   child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: SimilarMovies.length,
+                itemCount: similarMovies.length,
                 itemBuilder: (context, index) {
                   return MoviePoster(
-                      false,
-                      SimilarMovies[index].posterPath == null
-                          ? def
-                          : "https://image.tmdb.org/t/p/w500${SimilarMovies[index].posterPath}",
-                      movieModel);
+                    similarMovies[index].posterPath == null
+                        ? def
+                        : "https://image.tmdb.org/t/p/w500${similarMovies[index].posterPath}",
+                    singleMovieResult: similarMovies[index],
+                  );
                 },
               ));
             },
@@ -71,4 +70,3 @@ class RowOfSimilar extends StatelessWidget {
     );
   }
 }
-//ApiManager.getRecommended()

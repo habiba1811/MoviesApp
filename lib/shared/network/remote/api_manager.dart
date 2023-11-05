@@ -115,7 +115,7 @@ class ApiManager {
     }
   }
 
-  static Future<MovieDetailsResponse> getMovieDetails(String movieId) async {
+  static Future<MovieDetailsResponse> getMovieDetails(num movieId) async {
     try {
       Uri url = Uri.https(
         "api.themoviedb.org",

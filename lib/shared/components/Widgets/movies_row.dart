@@ -5,11 +5,18 @@ import 'package:moviesapp/shared/styles/colors.dart';
 
 import 'movie_poster.dart';
 
-class MoviesRow extends StatelessWidget {
-  String title;
-  int type; //type 1 New Releases or upcoming        type 2 is recommended
-  MoviesRow(this.title, this.type);
+class MoviesRow extends StatefulWidget {
+  final String title;
+  final int type; //type 1 New Releases or upcoming        type 2 is recommended
+  const MoviesRow({required this.title, required this.type});
 
+  // Results? movieModel;
+
+  @override
+  State<MoviesRow> createState() => _MoviesRowState();
+}
+
+class _MoviesRowState extends State<MoviesRow> {
   String def =
       "https://thumbs.dreamstime.com/z/no-photo-blank-image-icon-loading-images-missing-image-mark-image-not-available-image-coming-soon-sign-no-photo-blank-215973362.jpg?w=2048";
 
@@ -23,7 +30,7 @@ class MoviesRow extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              title,
+              widget.title,
               style: GoogleFonts.inter(
                   color: Colors.white,
                   fontWeight: FontWeight.w400,
@@ -31,7 +38,7 @@ class MoviesRow extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: type == 1
+            future: widget.type == 1
                 ? ApiManager.getUpcoming()
                 : ApiManager.getRecommended(),
             builder: (context, snapshot) {
@@ -48,17 +55,33 @@ class MoviesRow extends StatelessWidget {
                 return Text("Failed request check sent parameters",
                     style: TextStyle(color: Colors.white));
               }
-              var UpcomingMovies = snapshot.data?.results ?? [];
+              var upcomingMovies = snapshot.data?.results ?? [];
               return Expanded(
                   child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: UpcomingMovies.length,
+                itemCount: upcomingMovies.length,
                 itemBuilder: (context, index) {
-                  return MoviePoster(
-                    false,
-                    UpcomingMovies[index].posterPath == null
-                        ? def
-                        : "https://image.tmdb.org/t/p/w500${UpcomingMovies[index].posterPath}",
+                  return InkWell(
+                    onTap: () {
+                      // MovieDetailsModel mm =  MovieDetailsModel(
+                      //      movieTitle: upcomingMovies[index].title??"",
+                      //      movieId:upcomingMovies[index].id??-1 ,);
+                      // print(mm.movieId);
+                      //  Navigator.pushNamed(
+                      //    context, MovieDetails.routeName,
+                      //
+                      //    arguments:mm,
+                      //  );
+                      //  setState(() {
+
+                      // });
+                    },
+                    child: MoviePoster(
+                      upcomingMovies[index].posterPath == null
+                          ? def
+                          : "https://image.tmdb.org/t/p/w500${upcomingMovies[index].posterPath}",
+                      singleMovieResult: upcomingMovies[index],
+                    ),
                   );
                 },
               ));
