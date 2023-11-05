@@ -59,15 +59,36 @@ class _MovieDetailsState extends State<MovieDetails> {
               // }
               // var upcomingMovies = snapshot.data!.results ?? [];
               // return MyCarousel(UpcomingMovies);
-              return (Text(snapshot.data!.title!));
+              return Column(
+                children: [
+                  Container(
+                    height: 180,
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                  ),
+                  Text(snapshot.data!.title!),
+                ],
+              );
             },
           ),
           Expanded(
               child: RowOfSimilar(
-                "More Like This",
-              )),
+            "More Like This",
+          )),
         ],
       ),
     );
   }
 }
+
+//return Container(
+//                     height: 180,
+//                     width: MediaQuery.of(context).size.width,
+//                     margin: EdgeInsets.symmetric(horizontal: 5.0),
+//                     child: CachedNetworkImage(
+//                         height: double.infinity,
+//                         fit: BoxFit.fill,
+//                         imageUrl: movie.backdropPath == null
+//                             ? "https://thumbs.dreamstime.com/z/no-photo-blank-image-icon-loading-images-missing-image-mark-image-not-available-image-coming-soon-sign-no-photo-blank-215973362.jpg?w=2048"
+//                             : "https://image.tmdb.org/t/p/w500${movie.backdropPath}"),
+//                   );
