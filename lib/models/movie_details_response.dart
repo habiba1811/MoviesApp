@@ -1,4 +1,4 @@
-class MovieDetailsResponse {
+ class MovieDetailsResponse {
   MovieDetailsResponse({
     this.adult,
     this.backdropPath,
