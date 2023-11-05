@@ -19,8 +19,6 @@ class _MovieDetailsState extends State<MovieDetails> {
           .of(context)
           ?.settings
           .arguments as MovieDetailsModel;
-      print(" movieeeeeeeeee ${args.movieTitle}");
-      print(args.movieId);
     });
   }
 
@@ -29,8 +27,7 @@ class _MovieDetailsState extends State<MovieDetails> {
         .of(context)
         ?.settings
         .arguments as MovieDetailsModel;
-    print(" movieeeeeeeeee ${args.movieTitle}");
-    print(args.movieId);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
