@@ -61,6 +61,7 @@ class _MoviesRowState extends State<MoviesRow> {
                 scrollDirection: Axis.horizontal,
                 itemCount: upcomingMovies.length,
                 itemBuilder: (context, index) {
+
                   return InkWell(
                     onTap: () {
                       // MovieDetailsModel mm =  MovieDetailsModel(
@@ -83,6 +84,14 @@ class _MoviesRowState extends State<MoviesRow> {
                       singleMovieResult: upcomingMovies[index],
                     ),
                   );
+
+                  UpcomingMovies[index].posterPath = UpcomingMovies[index]
+                              .posterPath ==
+                          null
+                      ? def
+                      : "https://image.tmdb.org/t/p/w500${UpcomingMovies[index].posterPath}";
+                  return MoviePoster(UpcomingMovies[index]);
+
                 },
               ));
             },

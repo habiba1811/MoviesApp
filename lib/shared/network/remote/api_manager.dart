@@ -89,14 +89,14 @@ class ApiManager {
     }
   }
 
-  static Future<MoviesResponse> getMoviesByCategory(String category) async {
+  static Future<MoviesResponse> getMoviesByCategory(num categoryId) async {
     try {
       Uri url = Uri.https(
         "api.themoviedb.org",
         "/3/discover/movie",
         {
           "language": "en-US",
-          "with_genres": category,
+          "with_genres": categoryId.toString(),
           "include_adult": "false",
           "include_video": "false",
           "page": "1"

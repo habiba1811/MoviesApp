@@ -13,17 +13,19 @@ class CategoryMoviesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var genresModel = ModalRoute.of(context)?.settings.arguments as GenresModel;
 
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: MyColors.tapBarColor,
+          title: Text(
             genresModel.name ?? '',
             style: Theme.of(context).textTheme.headlineLarge,
             textAlign: TextAlign.left,
-          ),
+          )),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           FutureBuilder(
-              future: ApiManager.getMoviesByCategory(genresModel.name ?? ''),
+              future: ApiManager.getMoviesByCategory(genresModel.id ?? 0),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -36,7 +38,7 @@ class CategoryMoviesScreen extends StatelessWidget {
                     child: ListView.separated(
                   separatorBuilder: (context, index) {
                     return Divider(
-                      height: 5,
+                      height: 10,
                       color: MyColors.whiteColor,
                     );
                   },
