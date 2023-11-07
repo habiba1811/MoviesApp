@@ -9,7 +9,7 @@ import 'movie_poster.dart';
 class RowOfSimilar extends StatelessWidget {
   String title;
 
-  RowOfSimilar(this.title);
+  RowOfSimilar(this.title, {super.key});
 
   String def =
       "https://thumbs.dreamstime.com/z/no-photo-blank-image-icon-loading-images-missing-image-mark-image-not-available-image-coming-soon-sign-no-photo-blank-215973362.jpg?w=2048";

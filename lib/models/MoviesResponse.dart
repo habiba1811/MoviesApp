@@ -1,3 +1,5 @@
+import 'package:moviesapp/models/movie_details_response.dart';
+
 class MoviesResponse {
   MoviesResponse(
       {this.page,
@@ -47,22 +49,9 @@ class MoviesResponse {
 /// vote_average : 7.3
 /// vote_count : 379
 
-class Results {
+class Results extends MovieDetailsResponse {
   Results({
-    this.adult,
-    this.backdropPath,
     this.genreIds,
-    this.id,
-    this.originalLanguage,
-    this.originalTitle,
-    this.overview,
-    this.popularity,
-    this.posterPath,
-    this.releaseDate,
-    this.title,
-    this.video,
-    this.voteAverage,
-    this.voteCount,
   });
 
   Results.fromJson(dynamic json) {
@@ -82,18 +71,6 @@ class Results {
     voteCount = json['vote_count'];
   }
 
-  bool? adult;
-  String? backdropPath;
+  @override
   List<int>? genreIds;
-  num? id;
-  String? originalLanguage;
-  String? originalTitle;
-  String? overview;
-  num? popularity;
-  String? posterPath;
-  String? releaseDate;
-  String? title;
-  bool? video;
-  num? voteAverage;
-  num? voteCount;
 }

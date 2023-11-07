@@ -11,6 +11,7 @@ class MoviePoster extends StatefulWidget {
   final String posterLink;
   final Results? singleMovieResult;
   // final MovieDetailsResponse? movieDetailsResponse;
+  // final GenresModel? genresModel;
 
   const MoviePoster(this.posterLink, {super.key, this.singleMovieResult});
 
@@ -29,10 +30,14 @@ class _MoviePosterState extends State<MoviePoster> {
         MovieDetailsModel mm = MovieDetailsModel(
           movieTitle: widget.singleMovieResult!.title ?? "",
           movieId: widget.singleMovieResult!.id ?? -1,
-          poster: widget.singleMovieResult!.posterPath ?? "",
+          poster: widget.singleMovieResult!.posterPath ?? MovieDetails.def,
           time: widget.singleMovieResult!.releaseDate ?? "",
+          backdropPath:
+              widget.singleMovieResult!.backdropPath ?? MovieDetails.def,
+          overview: widget.singleMovieResult!.overview ?? "",
+          voteAverage: widget.singleMovieResult!.voteAverage ?? 0.0,
         );
-        print(mm.movieId);
+
         Navigator.pushNamed(
           context,
           MovieDetails.routeName,

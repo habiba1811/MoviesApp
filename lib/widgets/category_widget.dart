@@ -6,7 +6,7 @@ import 'package:moviesapp/shared/styles/colors.dart';
 class CategoryWidget extends StatelessWidget {
   GenresModel genresModel;
 
-  CategoryWidget(this.genresModel);
+  CategoryWidget(this.genresModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
