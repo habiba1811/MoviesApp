@@ -5,7 +5,6 @@ import '../shared/components/Widgets/carousel.dart';
 import '../shared/network/remote/api_manager.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -17,6 +16,18 @@ class _HomeTabState extends State<HomeTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Expanded(
+            child: Column(
+          children: [
+            Text(
+              "Popular",
+              style: TextStyle(color: Colors.white),
+            )
+          ],
+        )),
+        Expanded(child: MoviesRow(title: "New Releases", type: 1)),
+        Expanded(child: MoviesRow(title: "Recommended", type: 2)),
+
         FutureBuilder(
           future: ApiManager.getPopular(),
           builder: (context, snapshot) {
@@ -39,6 +50,7 @@ class _HomeTabState extends State<HomeTab> {
         ),
         Expanded(child: MoviesRow("New Releases", 1)),
         Expanded(child: MoviesRow("Recommended", 2)),
+
       ],
     );
   }
