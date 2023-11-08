@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:moviesapp/shared/styles/colors.dart';
 
 class SearchTab extends StatefulWidget {
+  const SearchTab({super.key});
+
   @override
   _SearchTabState createState() => _SearchTabState();
 }
@@ -31,6 +33,7 @@ class _SearchTabState extends State<SearchTab> {
               decoration: InputDecoration(
                 labelText: 'Search for a movie',
                 labelStyle: TextStyle(color: MyColors.whiteColor),
+                prefixIcon: Icon(Icons.search),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(100.0),
                   borderSide: BorderSide(color: MyColors.whiteColor),
@@ -60,7 +63,11 @@ class _SearchTabState extends State<SearchTab> {
                   child: Column(
                     children: [
                       ListTile(
-                        leading: Image.network(imageUrl, width: 80.0),
+                        leading: Image.network(
+                          imageUrl,
+                          width: 140.0,
+                          height: 89.0,
+                        ),
                         title: Text(
                           title,
                           style: TextStyle(
