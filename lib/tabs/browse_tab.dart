@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moviesapp/shared/components/Widgets/category_widget.dart';
 import 'package:moviesapp/shared/network/remote/api_manager.dart';
-import 'package:moviesapp/widgets/category_widget.dart';
 
 class BrowseTab extends StatefulWidget {
   const BrowseTab({super.key});

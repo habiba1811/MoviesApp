@@ -157,5 +157,5 @@ class ApiManager {
       throw Exception();
     }
   }
-}
 
+}

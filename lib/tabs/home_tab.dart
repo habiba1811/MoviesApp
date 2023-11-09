@@ -5,7 +5,6 @@ import '../shared/components/Widgets/carousel.dart';
 import '../shared/network/remote/api_manager.dart';
 
 class HomeTab extends StatefulWidget {
-
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
@@ -16,41 +15,29 @@ class _HomeTabState extends State<HomeTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-            child: Column(
-          children: [
-            Text(
-              "Popular",
-              style: TextStyle(color: Colors.white),
-            )
-          ],
-        )),
-        Expanded(child: MoviesRow(title: "New Releases", type: 1)),
-        Expanded(child: MoviesRow(title: "Recommended", type: 2)),
-
         FutureBuilder(
           future: ApiManager.getPopular(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
             if (snapshot.hasError) {
-              return Text("An Error has occured",
+              return const Text("An Error has occured",
                   style: TextStyle(color: Colors.white));
             }
             if (snapshot.data?.success == false) {
-              return Text("Failed request check sent parameters",
+              return const Text("Failed request check sent parameters",
                   style: TextStyle(color: Colors.white));
             }
-            var UpcomingMovies = snapshot.data?.results ?? [];
-            return MyCarousel(UpcomingMovies);
+            var upcomingMovies = snapshot.data?.results ?? [];
+            return MyCarousel(upcomingMovies);
           },
         ),
         Expanded(child: MoviesRow("New Releases", 1)),
+        SizedBox(height: 20),
         Expanded(child: MoviesRow("Recommended", 2)),
-
       ],
     );
   }

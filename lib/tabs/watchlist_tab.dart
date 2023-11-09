@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/models/MoviesResponse.dart';
+import 'package:moviesapp/shared/components/Widgets/movie_widget.dart';
 import 'package:moviesapp/shared/network/local/firebase_manager.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
-import 'package:moviesapp/widgets/movie_widget.dart';
 
 class WatchlistTab extends StatelessWidget {
   const WatchlistTab({super.key});

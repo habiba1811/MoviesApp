@@ -6,11 +6,9 @@ import 'package:moviesapp/shared/styles/colors.dart';
 import 'movie_poster.dart';
 
 class MoviesRow extends StatefulWidget {
-  final String title;
-  final int type; //type 1 New Releases or upcoming        type 2 is recommended
-  const MoviesRow({required this.title, required this.type});
-
-  // Results? movieModel;
+  String title;
+  int type; //type 1 New Releases or upcoming        type 2 is recommended
+  MoviesRow(this.title, this.type);
 
   @override
   State<MoviesRow> createState() => _MoviesRowState();
@@ -43,16 +41,16 @@ class _MoviesRowState extends State<MoviesRow> {
                 : ApiManager.getRecommended(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
               if (snapshot.hasError) {
-                return Text("An Error has occured",
+                return const Text("An Error has occured",
                     style: TextStyle(color: Colors.white));
               }
               if (snapshot.data?.success == false) {
-                return Text("Failed request check sent parameters",
+                return const Text("Failed request check sent parameters",
                     style: TextStyle(color: Colors.white));
               }
               var upcomingMovies = snapshot.data?.results ?? [];
@@ -61,37 +59,12 @@ class _MoviesRowState extends State<MoviesRow> {
                 scrollDirection: Axis.horizontal,
                 itemCount: upcomingMovies.length,
                 itemBuilder: (context, index) {
-
-                  return InkWell(
-                    onTap: () {
-                      // MovieDetailsModel mm =  MovieDetailsModel(
-                      //      movieTitle: upcomingMovies[index].title??"",
-                      //      movieId:upcomingMovies[index].id??-1 ,);
-                      // print(mm.movieId);
-                      //  Navigator.pushNamed(
-                      //    context, MovieDetails.routeName,
-                      //
-                      //    arguments:mm,
-                      //  );
-                      //  setState(() {
-
-                      // });
-                    },
-                    child: MoviePoster(
-                      upcomingMovies[index].posterPath == null
-                          ? def
-                          : "https://image.tmdb.org/t/p/w500${upcomingMovies[index].posterPath}",
-                      singleMovieResult: upcomingMovies[index],
-                    ),
-                  );
-
-                  UpcomingMovies[index].posterPath = UpcomingMovies[index]
+                  upcomingMovies[index].posterPath = upcomingMovies[index]
                               .posterPath ==
                           null
                       ? def
-                      : "https://image.tmdb.org/t/p/w500${UpcomingMovies[index].posterPath}";
-                  return MoviePoster(UpcomingMovies[index]);
-
+                      : "https://image.tmdb.org/t/p/w500${upcomingMovies[index].posterPath}";
+                  return MoviePoster(upcomingMovies[index]);
                 },
               ));
             },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moviesapp/models/details_model.dart';
+import 'package:moviesapp/models/MoviesResponse.dart';
 import 'package:moviesapp/shared/components/Widgets/movie_poster.dart';
 import 'package:moviesapp/shared/components/Widgets/row_of_similar.dart';
 import 'package:moviesapp/shared/network/remote/api_manager.dart';
@@ -20,24 +20,17 @@ class _MovieDetailsState extends State<MovieDetails> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      var args =
-          ModalRoute.of(context)?.settings.arguments as MovieDetailsModel;
-    });
   }
 
   Widget build(BuildContext context) {
-    var args = ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as MovieDetailsModel;
+    var args = ModalRoute.of(context)?.settings.arguments as Results;
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.black,
         title: Text(
-          args.movieTitle,
+          args.title ?? '',
           style: GoogleFonts.inter(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
         ),
@@ -47,7 +40,7 @@ class _MovieDetailsState extends State<MovieDetails> {
         children: [
           Expanded(
             child: FutureBuilder(
-              future: ApiManager.getMovieDetails(args.movieId),
+              future: ApiManager.getMovieDetails(args.id ?? 0),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -68,7 +61,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                               image: NetworkImage(
                                   "https://image.tmdb.org/t/p/w500${args.backdropPath}"),
                               fit: BoxFit.fill)),
-                      height: 190,
+                      height: 170,
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(horizontal: 5.0),
                     ),
@@ -87,11 +80,11 @@ class _MovieDetailsState extends State<MovieDetails> {
                       child: Row(
                         children: [
                           Text(
-                            DateTime.parse(args.time).year.toString(),
+                            DateTime.parse(args.releaseDate ?? '')
+                                .year
+                                .toString(),
                             style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-
-                          //Text("  ${args.runtime}"),
+                          )
                         ],
                       ),
                     )
@@ -104,7 +97,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: FutureBuilder(
-                future: ApiManager.getMovieDetails(args.movieId),
+                future: ApiManager.getMovieDetails(args.id ?? 0),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -115,18 +108,17 @@ class _MovieDetailsState extends State<MovieDetails> {
                     return Text("An Error has occured",
                         style: TextStyle(color: Colors.white));
                   }
-
                   return Row(
                     children: [
                       MoviePoster(
-                        args.poster,
+                        args,
                       ),
                       Flexible(
                         child: Column(
                           children: [
                             Expanded(
                               child: Text(
-                                args.overview,
+                                args.overview ?? '',
                                 style: GoogleFonts.inter(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,
@@ -161,4 +153,3 @@ class _MovieDetailsState extends State<MovieDetails> {
     );
   }
 }
-
