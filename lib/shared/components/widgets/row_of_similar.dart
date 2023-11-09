@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moviesapp/models/details_model.dart';
+import 'package:moviesapp/models/MoviesResponse.dart';
 import 'package:moviesapp/shared/network/remote/api_manager.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
 
@@ -16,7 +16,7 @@ class RowOfSimilar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments as MovieDetailsModel;
+    var args = ModalRoute.of(context)?.settings.arguments as Results;
     return Container(
       decoration: BoxDecoration(color: MyColors.moviesRowBackColor),
       child: Column(
@@ -33,7 +33,7 @@ class RowOfSimilar extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: ApiManager.getSimilar(args.movieId),
+            future: ApiManager.getSimilar(args.id ?? 0),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -55,12 +55,12 @@ class RowOfSimilar extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: similarMovies.length,
                 itemBuilder: (context, index) {
-                  return MoviePoster(
-                    similarMovies[index].posterPath == null
-                        ? def
-                        : "https://image.tmdb.org/t/p/w500${similarMovies[index].posterPath}",
-                    singleMovieResult: similarMovies[index],
-                  );
+                  similarMovies[index].posterPath = similarMovies[index]
+                              .posterPath ==
+                          null
+                      ? def
+                      : "https://image.tmdb.org/t/p/w500${similarMovies[index].posterPath}";
+                  return MoviePoster(similarMovies[index]);
                 },
               ));
             },

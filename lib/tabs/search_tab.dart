@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:moviesapp/shared/styles/colors.dart';
 
 class SearchTab extends StatefulWidget {
@@ -33,18 +34,21 @@ class _SearchTabState extends State<SearchTab> {
               decoration: InputDecoration(
                 labelText: 'Search for a movie',
                 labelStyle: TextStyle(color: MyColors.whiteColor),
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
+                filled: true,
+                fillColor: MyColors.grayColor,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(100.0),
-                  borderSide: BorderSide(color: MyColors.whiteColor),
+                  borderSide: BorderSide(color: MyColors.whiteColor, width: 2),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(100.0),
-                  borderSide: BorderSide(color: MyColors.whiteColor),
+                  borderSide: BorderSide(color: MyColors.whiteColor, width: 2),
                 ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(100.0),
-                    borderSide: BorderSide(color: MyColors.whiteColor)),
+                    borderSide:
+                        BorderSide(color: MyColors.whiteColor, width: 2)),
               ),
             ),
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapp/models/CategoriesResponse.dart';
+import 'package:moviesapp/shared/components/Widgets/movie_widget.dart';
 import 'package:moviesapp/shared/network/remote/api_manager.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
-import 'package:moviesapp/widgets/movie_widget.dart';
 
 class CategoryMoviesScreen extends StatelessWidget {
   static String routeName = 'category_movies';
