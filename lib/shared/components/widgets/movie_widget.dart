@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/models/MoviesResponse.dart';
+import 'package:moviesapp/screens/movie_details.dart';
 import 'package:moviesapp/shared/network/local/firebase_manager.dart';
 import 'package:moviesapp/shared/styles/colors.dart';
 
@@ -40,24 +41,33 @@ class _MovieWidgetState extends State<MovieWidget> {
                 children: [
                   Stack(
                     children: [
-                      Card(
-                        margin: const EdgeInsets.only(right: 10),
-                        shape: OutlineInputBorder(
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            MovieDetails.routeName,
+                            arguments: widget.movieModel,
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.only(right: 10),
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                  color: Colors.transparent, width: 0)),
+                          child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: Colors.transparent, width: 0)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                              height: 90,
-                              width: 130,
-                              fit: BoxFit.cover,
-                              imageUrl:
-                                  'https://image.tmdb.org/t/p/w300/${widget.movieModel.posterPath!}',
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error)),
+                            child: CachedNetworkImage(
+                                height: 90,
+                                width: 130,
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w300/${widget.movieModel.posterPath!}',
+                                placeholder: (context, url) =>
+                                    const CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error)),
+                          ),
                         ),
                       ),
                       Positioned(
